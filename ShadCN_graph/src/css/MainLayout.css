@@ -1,0 +1,14 @@
+/* MainLayout.css */
+.layout {
+  display: flex;
+  width: 100vw;
+}
+
+.content {
+ width: 100vw;
+ display: flex;
+ padding-left: 314px;
+ padding-top: 60px;
+ height: 100vh;
+}
+
