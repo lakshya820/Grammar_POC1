@@ -1,0 +1,27 @@
+.tests2 {
+    display: flex;
+    width: 100vw;
+    padding: 60px 0px 0px 314px;
+}
+  
+.tests2_content{
+    display: flex;
+    flex-direction: column;
+    padding-left: 88px;
+    padding-top: 60px;
+
+}
+
+.Card{
+    display: flex;
+    width: 100vh;
+    padding-top: 160px;
+    justify-content: center;
+
+    background: no-repeat padding-box;
+    box-shadow: 0px 0px 0px #0000000A;
+    border-radius: 2px;
+    opacity: 1;
+
+}
+
