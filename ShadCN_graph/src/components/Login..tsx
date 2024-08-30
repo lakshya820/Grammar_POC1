@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "../assets/image.png";
+import Image from "../assets/image.jpeg";
 import Logo from "../assets/logo.png";
 import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";

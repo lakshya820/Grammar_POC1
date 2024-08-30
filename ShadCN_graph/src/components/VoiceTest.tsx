@@ -2,10 +2,11 @@ import { default as React, useEffect, useState, useRef } from "react";
 import {CardContent,CardFooter} from "./ui/card";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import '../css/Tests2.css';
 import * as io from "socket.io-client";
 import getLexResponse from '../lib/lex-bot';
 import ExamLayout from "./ExamLayout";
+import { useNavigate } from 'react-router-dom';
+import '../css/VoiceTest.css';
 
 var request_content_type = import.meta.env.VITE_APP_REQUEST_CONTENT_TYPE;
 var input_stream = import.meta.env.VITE_APP_INITIAL_INPUT;
@@ -41,6 +42,7 @@ const VoiceTest: React.FC = () => {
   const processorRef = useRef<any>();
   const audioContextRef = useRef<any>();
   const audioInputRef = useRef<any>();
+  const navigate = useNavigate();
 
   //function to make a call to lex-bot.js
   function callLexBot(input_text: any){
@@ -82,6 +84,7 @@ const VoiceTest: React.FC = () => {
 
       setRecognitionHistory(()=>[]);
       console.log("The final uttrence of the user sending to lex: "+final_uttrence);
+      final_uttrence=final_uttrence.charAt(1).toUpperCase() + final_uttrence.slice(2);
       setLastSentence(final_uttrence);
       setTextAreaValue(textAreaValue+final_uttrence);
       //callLexBot(final_uttrence);
@@ -219,9 +222,13 @@ const VoiceTest: React.FC = () => {
     setTextAreaValue("");
   });
 
+  const handleShowingGrammar= () => {
+    navigate('/grammar');
+  };
+
   return (
     <ExamLayout>
-      <div>
+      <div hidden>
         {/* <Button
           id = "start_conv" 
           onClick={connect}
@@ -233,23 +240,39 @@ const VoiceTest: React.FC = () => {
           id = "end_rec" 
           onClick={disconnect}
           disabled={!isRecording}></Button>
+          <Button
+                id = "grammar_redirect" 
+                onClick={handleShowingGrammar}
+                >Grammar</Button>
       </div>
       <CardContent>
         <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
           {/* <Label htmlFor="name">#Question 1</Label> */}
-          <span><audio id="audio" controls src="./assets/blank.mp3"></audio></span>
-          <Label htmlFor="marker"><span id="ques-disp">Loding question...</span></Label>
+          <span hidden><audio id="audio" controls src="./assets/blank.mp3"></audio></span>
+          <Label htmlFor="marker"><span className="question_span" id="ques-disp">Loading question...</span></Label>
           {/* <Input id="name" placeholder="Answer Transcript..."/> */}
-          <div><span><textarea rows={10} cols={50} value={textAreaValue}>{textAreaValue}</textarea></span></div>
+          <div>
+            <span>
+              <textarea className="voicetest_textarea" rows={10} cols={50} value={textAreaValue}>
+                {textAreaValue}
+                </textarea>
+              </span>
+              </div>
+
+              <div className="exam_note">
+                <i><p>Important Instructions:&nbsp;Please take 30-40 seconds to frame your answer and then try answering in one go without any unnecessary pauses. </p>
+                <p>Press the 'Enable Mic' button to start recoding your answer. After finishing your answer press on submit.</p>
+                </i>
+              </div>
           </div>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button id="start_rec" type="button" onClick={connect} disabled={isRecording}>Mic Start</Button>
-        <Button variant="outline" onClick={handleButtonClear}>Clear</Button>
-        <Button variant="outline" onClick={handleButtonRemoveLast}>Remove last sentence</Button>
-        <Button onClick={handleButtonSubmit}>Submit</Button>
+        <button className="mic_button" id="start_rec" type="button" onClick={connect} disabled={isRecording}>Enable Mic</button>
+        <button className="clear_button" onClick={handleButtonClear}>Clear</button>
+        <button className="remove_button"onClick={handleButtonRemoveLast}>Remove last sentence</button>
+        <button className="submit_button"onClick={handleButtonSubmit}>Submit</button>
       </CardFooter>
     </ExamLayout>
   )

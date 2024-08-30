@@ -9,15 +9,16 @@
   border-bottom: 1px solid #ddd;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+ 
   box-sizing: border-box;
   z-index: 1000;
 }
 
-.logo {
+.header_title {
   font-size: 24px;
   font-weight: bold;
   color: #63666A;
+  padding-left: 20px;
 }
 
 .user-info {

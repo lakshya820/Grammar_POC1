@@ -1,0 +1,55 @@
+.clear_button{
+    background-color: #5F249F;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    color: aliceblue;
+    font: normal normal normal 16px/27px Open Sans, sans-serif;
+}
+
+.submit_button{
+    background-color: #5F249F;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    color: aliceblue;
+    font: normal normal normal 16px/27px Open Sans, sans-serif;
+}
+
+.remove_button{
+    background-color: #5F249F;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    color: aliceblue;
+    font: normal normal normal 16px/27px Open Sans, sans-serif;
+}
+
+.mic_button {
+    background-color:#5F249F; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    width: 200px;
+    height: 50px;
+    font: normal normal normal 16px/27px Open Sans, sans-serif;
+  }
+  
+  .mic_button:disabled {
+    background-color: #ccc; /* Grey background when disabled */
+    cursor: not-allowed; /* Change cursor to indicate disabled */
+  }
+
+  .voicetest_textarea{
+    width: 900px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .question_span{
+    font: normal normal normal 16px/27px Open Sans, sans-serif;
+  }
+
+  .exam_note{
+    font: normal normal 16px/27px Open Sans, sans-serif;
+  }

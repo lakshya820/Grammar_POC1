@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
 
   const handleToTests = () => {
     // Perform login logic here
-    navigate('/main/tests1');
+    navigate('/tests1');
   };
 
   return (

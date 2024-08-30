@@ -2,6 +2,8 @@ console.log("from server side");
 const express = require("express");
 const speech = require("@google-cloud/speech");
 
+require('dotenv').config();
+
 //use logger
 const logger = require("morgan");
 
@@ -10,6 +12,9 @@ const bodyParser = require("body-parser");
 
 //use corrs
 const cors = require("cors");
+
+//use openAI
+const {OpenAI} = require("openai")
 
 const http = require("http");
 const { Server } = require("socket.io");
@@ -30,6 +35,9 @@ const io = new Server(server, {
   },
 });
 
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+});
 
 //TODO: Create this file in the server directory of the project
 process.env.GOOGLE_APPLICATION_CREDENTIALS = "./speech-to-text-key.json";
@@ -57,6 +65,25 @@ io.on("connection", (socket) => {
   socket.on("endGoogleCloudStream", function () {
     console.log("** ending google cloud stream **\n");
     stopRecognitionStream();
+  });
+
+  socket.on('lexanswers', async (data) => {
+    console.log('Received answers from Lex:', data);
+    answers=data;
+
+    socket.on('lexquestions',async (data) => {
+      console.log('Received questions from Lex:', data);
+      questions=data;
+      if(questions !== null){
+        
+        grammarCorrectionResult = await grammarcorrection(answers, questions);
+        console.log("grammarReceived", grammarCorrectionResult);
+        io.emit("grammarCorrectionResult", grammarCorrectionResult);
+        //io.emit("questions", questions);
+
+      }
+    });
+
   });
 
   socket.on("send_audio_data", async (audioData) => {
@@ -117,6 +144,86 @@ io.on("connection", (socket) => {
     recognizeStream = null;
   }
 });
+
+async function grammarcorrection(grammarArray, questions) {
+   
+  // Initialize arrays for each function call
+  let correctedGrammarArray = [];
+  let correct = [];
+  let incorrect = [];
+  let count = 0;
+  let total;
+  const sentences = grammarArray;
+ 
+ 
+ 
+ //console.log("sentences: ", sentences);
+ try {
+     // Iterate over each string in the grammarArray
+     for (const grammar of grammarArray) {
+         const completion = await openai.chat.completions.create({
+             model: "gpt-3.5-turbo",
+             messages: [
+                 {
+                     role: "system",
+                     content: "You will be provided with statements, and your task is to convert them to gramatically correct statements."
+                 },
+                 {
+                     role: "user",
+                     content: grammar
+                 }
+             ],
+             temperature: 0,
+             max_tokens: 60,
+             top_p: 1.0,
+             frequency_penalty: 0.0,
+             presence_penalty: 0.0,
+         });
+
+         const grammarResult = completion.choices[0].message.content;
+         //console.log("grammarresult_backend", grammarResult);
+
+         // Push the corrected result into the array
+         correctedGrammarArray.push(grammarResult);
+     }
+
+     const incorrect = grammarArray.flatMap(text =>
+       text.split(/(?<=\.)\s*/).filter(sentence => sentence.trim() !== "")
+     );
+     console.log("incorrect: ", incorrect);
+
+     const correct = correctedGrammarArray.flatMap(text =>
+       text.split(/(?<=\.)\s*/).filter(sentence => sentence.trim() !== "")
+     );
+     console.log("correct: ", correct);
+
+     for (let i = 0; i < sentences.length; i++) {
+       if(sentences[i] !== correctedGrammarArray[i]){
+         // incorrect.push(sentences[i]);
+         // correct.push(correctedGrammarArray[i]);
+         count++;
+       }
+     }
+     
+     //console.log("correctedgrammararray: ", correctedGrammarArray);
+ } catch (error) {
+     console.log("error", `Something happened! like: ${error}`);
+     next(error); // If you're using this in an Express route, pass the error to the next middleware
+ }
+
+ total=(1-(count/(sentences.length)))*100;
+ // console.log("counr:", count);
+ // console.log("length:", grammarArray.length);
+ // console.log("total:", total);
+ // Return the array of corrected results
+ return {
+   questions,
+   grammarArray,
+   correctedGrammarArray,
+   total
+ };
+}
+
 
 server.listen(8081, () => {
   console.log("WebSocket server listening on port 8081.");

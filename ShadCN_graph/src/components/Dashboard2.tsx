@@ -11,7 +11,7 @@ const Dashboard2: React.FC = () => {
 
     const handleToTests = () => {
         // Perform login logic here
-        navigate('/main/tests1');
+        navigate('/tests1');
       };
     
     return (
@@ -34,8 +34,8 @@ const Dashboard2: React.FC = () => {
                             <p>3</p>
                         </div>
                     </div>
-                    <div className="dashboard-table">
-                        <table>
+                    <div className="dashboard_content">
+                        <table className="dashboard-table">
                             <thead>
                                 <tr>
                                 <th>SI#</th>
@@ -50,7 +50,7 @@ const Dashboard2: React.FC = () => {
                                 <tr>
                                 <td>1</td>
                                 <td>
-                                    <button className="dashboard_button" onClick={handleToTests}>Empathy</button>
+                                    <button className="dashboard_button" onClick={handleToTests}>Voice</button>
                                 </td>
                                 <td>Upcoming</td>
                                 <td>15/12/2022</td>
@@ -60,22 +60,12 @@ const Dashboard2: React.FC = () => {
                                 <tr>
                                 <td>2</td>
                                 <td>
-                                    <button className="dashboard_button">Comprehension</button>
+                                    <button className="dashboard_button">Chat</button>
                                 </td>
                                 <td>Pending</td>
                                 <td>12/22/2023</td>
                                 <td>NA</td>
                                 <td>Passed</td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>
-                                    <button className="dashboard_button">Paraphrasing</button>
-                                </td>
-                                <td>Completed</td>
-                                <td>22/12/2022</td>
-                                <td>80%</td>
-                                <td>NA</td>
                                 </tr>
                             </tbody>
                         </table>

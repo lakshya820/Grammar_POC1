@@ -6,7 +6,9 @@ import Logo from "../assets/logo.png";
 const Header: React.FC = () => {
   return (
     <div className="header">
-      <div className="logo">VOICE TRAINING</div>
+      <div className="header_title">
+        <p>VOICE TRAINING</p>
+        </div>
       <div className="user-info">
         <img src={Logo} alt="Decorative background" className="header-right-image" />
       </div>

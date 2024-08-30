@@ -1,16 +1,61 @@
-.Card{
-    padding-top: 0 !important;
-    width: 300vh;
+.exam{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 60px;
+
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.tests2{
-    padding: 40px 0px 0px 0px !important;
-}
+.exam_content {
+    display: flex;
+    width: 50vw;
+    height: 65vh;
+    
+    
+    border-radius: 1.25rem;
+    border: solid 1px #F4F5F8;
+    background: #FBFBFB;
+    box-shadow: 7px 7px 10px #0000000A;
 
-.tests2_content{
-    padding-left: 0 !important;
-    padding-top: 50px !important;
-}
+ }
+
+ .exam-timer{
+    display: flex;
+    flex-direction: row;
+    font: normal normal 500 16px/27px Open Sans, sans-serif;
+    align-items: flex-end;
+ }
+  
+  .exam_card {
+    width: 50vw;
+    height: 65vh;
+    border: none;
+  }
+
+  .exam_card_header{
+    color: #43425D;
+    font: normal normal 800 24px/25px Open Sans, sans-serif;
+  }
+
+  .exam_end{
+    display: flex;
+    font: normal normal 600 24px/25px Open Sans, sans-serif;
+    background-color: #F4F5F8;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+  }
+
+  .exam_end p{
+    margin-top: 50vh;
+   
+    
+    
+  }
 
 .overlay{
     position: fixed;
@@ -21,7 +66,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.795);
+    background-color: rgba(0, 0, 0, 0.92);
     z-index: 2;
     cursor: pointer;
     text-align: center;
@@ -35,4 +80,21 @@
 .overlay-elem{
     padding-bottom: 2rem;
     color: #e1dcdc;
+}
+
+.overlay_button{
+    background-color: grey;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.overlay_div{
+    border: 2px solid grey; /* You can adjust the color and width of the border */
+    padding: 10px;          /* Add padding to create some space between the border and the content */
+    border-radius: 5px;
+    width: 60vw;
+    margin: auto;
+    font-size: 18px;
 }

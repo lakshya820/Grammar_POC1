@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { ungzip } from 'pako';
 import { Buffer } from 'buffer';
 import { useNavigate } from 'react-router-dom';
+import * as io from "socket.io-client";
 
 function unzip(buffer_string){
   // decode the base64 encoded data
@@ -13,6 +14,8 @@ function unzip(buffer_string){
   //console.log('ungzipedData', ungzipedData);
   return new TextDecoder().decode(ungzipedData);
 }
+
+const socket = io.connect('http://localhost:8081'); 
 
 AWS.config.update({
   accessKeyId: import.meta.env.VITE_APP_AWS_LEX_CLIENTID,
@@ -48,6 +51,7 @@ export default function getLexResponse(_inputStream, _requestContentType){
   let answer = [];
   lex_params.inputStream = _inputStream;
   lex_params.requestContentType=_requestContentType;
+  let questionList=[];
 
   console.log("start call to lex.")
   lexV2Client.recognizeUtterance(lex_params, async function(err, data){
@@ -68,12 +72,25 @@ export default function getLexResponse(_inputStream, _requestContentType){
         if(json_session_state['intent']['state'] !== "Fulfilled"){
           //document.getElementById('ques_no').innerHTML=(json_session_state["dialogAction"]["slotToElicit"]).replace('_', ' #');
           question=json_session_state["sessionAttributes"][json_session_state["dialogAction"]["slotToElicit"]];
-        }  
+          
+        }
+        else{
+          document.getElementById('test_end_message').style.display="block";
+          document.getElementById('exam_content').style.display="none";
+        }
         
         //load audio blob in audio control
-        audio_player = document.getElementById('audio');  
+        audio_player = document.getElementById('audio'); 
+        audio_player.autoplay=false; 
         audio_player.src = URL.createObjectURL(audioBlob);
-        audio_player.autoplay=true;
+        //audio_player.autoplay=true;
+
+        console.log("outside if",sessionStorage.getItem('first_page_load'));
+
+        if(sessionStorage.getItem('first_page_load') === 'false'){
+          console.log("inside if",sessionStorage.getItem('first_page_load'));
+          audio_player.autoplay=true;
+        }
 
         let disp_ques = document.getElementById('ques-disp');
         disp_ques.textContent = question;
@@ -81,17 +98,26 @@ export default function getLexResponse(_inputStream, _requestContentType){
         //body_css.style.backgroundImage = "url('./images/speeking.gif')";
         audio_player.addEventListener("ended", function(){
           if(json_session_state['intent']['state'] == "Fulfilled"){
+            
+            
 
             var slots = json_session_state['intent']['slots'];
             for(let i=1; i<=Object.keys(slots).length; i++){
               answer[i-1]=slots['Question_'+i]['value']['originalValue'];
+              questionList[i-1]=json_session_state["sessionAttributes"]['Question_'+i];
             }
             console.log(answer);
             sessionStorage.setItem('lex_answers', answer);
-            window.location.href = '/test-complete.html';
-            //const navigate = useNavigate();
 
-            navigate('/TypeTest.tsx');
+            socket.emit("lexanswers", answer, questionList);
+
+            socket.emit("lexquestions", questionList);
+            //window.location.href = '/test-complete.html';
+            //const navigate = useNavigate();
+            document.getElementById('grammar_redirect')?.click();
+
+
+            //navigate('/TypeTest.tsx');
           }
           //document.getElementById('start_rec')?.click();
           //document.getElementById('end_rec')?.click();

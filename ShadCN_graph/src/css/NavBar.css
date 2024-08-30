@@ -1,28 +1,29 @@
 .navbar {
-    width: 314px;
+    width: 19.625rem;
     position: fixed;
-    top: 60px;
+    top: 3.75rem;
     left: 0;
-    height: calc(100% - 60px);
+    height: calc(100% - 3.75rem);
     background-color: #5F249F;
     
   }
   
   .navbar button {
     width: 100%;
-    height: 40px; /* Fixed height for the buttons */
-    margin: 10px 0;
+    height: 3.75rem; /* Fixed height for the buttons */
+    
     color: white;
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     text-align: left;
-    padding: 10px;
+    padding: .625rem;
     transition: background-color 0.3s;
   }
   
   .navbar button:hover {
     background-color: #330072;
+    font-weight: bold;
   }
   
