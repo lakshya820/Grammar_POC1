@@ -97,7 +97,8 @@ const ExamLayout: React.FC<MainLayoutProps> = ({children}) => {
     document.getElementById('start_timer')?.remove();
     exam_start=true;
     //document.getElementById('audio')!.autoplay=true;
-    document.getElementById('audio')?.play();
+    const audioElement = document.getElementById('audio') as HTMLAudioElement;
+    audioElement.play();
     sessionStorage.setItem('first_page_load', 'false');
     console.log("in examlayout:", sessionStorage.getItem('first_page_load'));
   }
@@ -106,7 +107,8 @@ const ExamLayout: React.FC<MainLayoutProps> = ({children}) => {
     document.documentElement.requestFullscreen();
     document.getElementById('warning')!.style.display="none";    
     sessionStorage.setItem('first_exam_warning', "true");
-    document.getElementById('audio')?.play();    
+    const audioElement = document.getElementById('audio') as HTMLAudioElement;
+    audioElement.play();   
   };
 
   function show_score(){
