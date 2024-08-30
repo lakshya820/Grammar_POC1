@@ -1,4 +1,4 @@
-import Login from './components/Login.';
+import Login from './components/Login';
 import MainLayout from './components/MainLayout';
 import Dashboard2 from './components/Dashboard2';
 import VoiceTest from './components/VoiceTest';
