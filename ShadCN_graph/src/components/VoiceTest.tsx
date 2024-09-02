@@ -33,7 +33,7 @@ interface WordRecognized {
 const VoiceTest: React.FC = () => {
   //console.log("Initiating...............");
   const [connection, setConnection] = useState<io.Socket>();
-  const [currentRecognition, setCurrentRecognition] = useState<string>();
+  //const [currentRecognition, setCurrentRecognition] = useState<string>();
   const [recognitionHistory, setRecognitionHistory] = useState<string[]>([]);
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recorder, setRecorder] = useState<any>();
@@ -60,10 +60,11 @@ const VoiceTest: React.FC = () => {
   const speechRecognized = (data: WordRecognized) => {
     if (data.isFinal) {
       setRecognitionHistory((old) => [data.text, ...old]);
-    } else {
-      console.log("speech recognized else");
-      setCurrentRecognition(data.text + "...continue listning");
-    }
+     } 
+    //else {
+    //   console.log("speech recognized else");
+    //   setCurrentRecognition(data.text + "...continue listning");
+    // }
   };
 
   useEffect(() => {
@@ -105,9 +106,9 @@ const VoiceTest: React.FC = () => {
 
     socket.emit("startGoogleCloudStream");
 
-    socket.on("receive_message", (data) => {
-      //console.log("received message from server: ", data);
-    });
+    // socket.on("receive_message", (data) => {
+    //   console.log("received message from server: ", data);
+    // });
 
     //Printing the each uttrence from the server.
     socket.on("receive_audio_text", (data) => {

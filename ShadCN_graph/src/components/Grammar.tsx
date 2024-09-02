@@ -13,7 +13,7 @@ interface GrammarCorrectionResult {
 
 const Grammar: React.FC = () => {
   const [grammarCorrectionResult, setGrammarCorrectionResult] = useState<GrammarCorrectionResult | null>(null);
-  const [questionsFromLex, setQuestionsFromLex] = useState<string[]>([]);
+  //const [questionsFromLex, setQuestionsFromLex] = useState<string[]>([]);
 
     const socket = io.connect("http://localhost:8081");
 

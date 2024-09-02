@@ -1,7 +1,7 @@
-import * as io from "socket.io-client";
-import { default as React, useState } from "react";
-import MainLayout from "./MainLayout";
-import Header from "./Header";
+//import * as io from "socket.io-client";
+import { default as React } from "react";
+//import MainLayout from "./MainLayout";
+//import Header from "./Header";
 import '../css/Dashboard2.css';
 import { useNavigate } from "react-router-dom";
 

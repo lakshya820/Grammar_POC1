@@ -2,7 +2,6 @@ import Login from './components/Login';
 import MainLayout from './components/MainLayout';
 import Dashboard2 from './components/Dashboard2';
 import VoiceTest from './components/VoiceTest';
-import TypeTest from './components/TypeTest';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Grammar from './components/Grammar';
 import Tests1 from './components/Tests1';

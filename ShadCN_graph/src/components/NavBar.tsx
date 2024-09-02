@@ -1,7 +1,7 @@
 // NavBar.tsx
 import React from 'react';
 import '../css/NavBar.css';
-import { Link, Outlet } from 'react-router-dom';
+//import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar: React.FC = () => {

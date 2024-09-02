@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "../assets/image.jpeg";
 import Logo from "../assets/logo.png";
-import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import "../css/Login.css"
@@ -12,15 +11,15 @@ import "../css/Login.css"
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showLogin, setShowLogin] = useState(true);
-  const [showVideo, setShowVideo] = useState(false);
-  const [nextClicked, setNextClicked] = useState(false);
+  // const [showLogin, setShowLogin] = useState(true);
+  // const [showVideo, setShowVideo] = useState(false);
+  // const [nextClicked, setNextClicked] = useState(false);
 
-  const nextPage = () => {
-    setShowVideo(true);
-    setShowLogin(false);
-    setNextClicked(true);
-  }
+  // const nextPage = () => {
+  //   setShowVideo(true);
+  //   setShowLogin(false);
+  //   setNextClicked(true);
+  // }
 
   const navigate = useNavigate();
 
