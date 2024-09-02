@@ -1,9 +1,9 @@
 // Header.tsx
-import { default as React, useEffect, useState, useRef } from "react";
+import { default as React, useEffect} from "react";
 import '../css/Header.css';
 import '../css/NavBar.css';
 import '../css/QuestionMain.css'
-import {Card,CardDescription,CardHeader,CardTitle} from "./ui/card";
+import {Card,CardHeader,CardTitle} from "./ui/card";
 import Timer from "../lib/test-timer";
 import Header from './Header';
 
@@ -111,9 +111,9 @@ const ExamLayout: React.FC<MainLayoutProps> = ({children}) => {
     audioElement.play();   
   };
 
-  function show_score(){
-    return "80%";
-  }
+  // function show_score(){
+  //   return "80%";
+  // }
   
 
   return (
